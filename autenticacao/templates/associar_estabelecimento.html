@@ -1,0 +1,22 @@
+<!-- templates/associar_estabelecimento.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Associar Estabelecimento</title>
+</head>
+<body>
+    <h1>Associe seu Estabelecimento</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="estabelecimento">Estabelecimento:</label>
+        <select name="estabelecimento" id="estabelecimento">
+            {% for estabelecimento in estabelecimentos %}
+                <option value="{{ estabelecimento.id }}">{{ estabelecimento.nome }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Associar</button>
+    </form>
+</body>
+</html>
