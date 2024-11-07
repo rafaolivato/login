@@ -23,3 +23,13 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['estabelecimento']
+
+
+# forms.py
+from django import forms
+from .models import Medicamento
+
+class MedicamentoForm(forms.ModelForm):
+    class Meta:
+        model = Medicamento
+        fields = ['nome', 'quantidade', 'validade']

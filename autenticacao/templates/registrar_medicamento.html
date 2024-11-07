@@ -1,0 +1,7 @@
+<!-- registrar_medicamento.html -->
+<h2>Registrar Medicamento</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Registrar</button>
+</form>

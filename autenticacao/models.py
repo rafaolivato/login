@@ -17,4 +17,12 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} - {self.estabelecimento if self.estabelecimento else "Sem Estabelecimento"}'
 
+class Medicamento(models.Model):
+    nome = models.CharField(max_length=100)
+    quantidade = models.IntegerField()
+    validade = models.DateField()
+    estabelecimento = models.ForeignKey(Estabelecimento, on_delete=models.CASCADE)
+    registrado_por = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)  # Usuário que registrou
 
+    def __str__(self):
+        return self.nome
