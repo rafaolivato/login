@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transferência de Medicamento</title>
+</head>
+<body>
+    <h1>Transferência de Medicamento</h1>
+
+    <!-- Exibição de mensagens de feedback -->
+    {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="medicamento">Medicamento:</label>
+        <select name="medicamento" required>
+            {% for medicamento in medicamentos %}
+                <option value="{{ medicamento.id }}">{{ medicamento.nome }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="origem">Estabelecimento de Origem:</label>
+        <select name="origem" required>
+            {% for estabelecimento in estabelecimentos %}
+                <option value="{{ estabelecimento.id }}">{{ estabelecimento.nome }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="destino">Estabelecimento de Destino:</label>
+        <select name="destino" required>
+            {% for estabelecimento in estabelecimentos %}
+                <option value="{{ estabelecimento.id }}">{{ estabelecimento.nome }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" name="quantidade" min="1" required>
+
+        <button type="submit">Transferir</button>
+    </form>
+
+    <a href="{% url 'medicamento_lista' %}">Voltar para Lista de Medicamentos</a>
+</body>
+</html>

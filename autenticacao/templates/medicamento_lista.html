@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Medicamentos</title>
+</head>
+<body>
+    <h1>Lista de Medicamentos</h1>
+    <table>
+        <tr>
+            <th>Medicamento</th>
+            <th>Quantidade</th>
+            <th>Estabelecimento</th>
+            <th>Registrado por</th>
+        </tr>
+        {% for medicamento in medicamentos %}
+        <tr>
+            <td>{{ medicamento.nome }}</td>
+            <td>{{ medicamento.quantidade }}</td>
+            <td>{{ medicamento.estabelecimento.nome }}</td>
+            <td>{{ medicamento.registrado_por.username }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,7 +1,7 @@
 # autenticacao/forms.py
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile, Estabelecimento
+from .models import Profile, Estabelecimento,Medicamento
 
 class UserRegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
@@ -25,11 +25,29 @@ class ProfileForm(forms.ModelForm):
         fields = ['estabelecimento']
 
 
-# forms.py
 from django import forms
-from .models import Medicamento
+from .models import Medicamento, Estabelecimento
 
 class MedicamentoForm(forms.ModelForm):
     class Meta:
         model = Medicamento
         fields = ['nome', 'quantidade', 'validade']
+
+    # Adiciona o campo 'estabelecimento' para não ser exibido no formulário
+    estabelecimento = forms.ModelChoiceField(
+        queryset=Estabelecimento.objects.all(),
+        required=False,  # Não precisa ser preenchido pelo usuário
+        widget=forms.HiddenInput()  # Deixa o campo oculto no formulário
+    )
+
+    def save(self, commit=True, request=None):
+        medicamento = super().save(commit=False)
+        if self.instance.pk is None:  # Se o objeto for novo
+            if request:
+                # Define o estabelecimento baseado no perfil do usuário logado
+                medicamento.estabelecimento = request.user.profile.estabelecimento
+                medicamento.registrado_por = request.user
+        if commit:
+            medicamento.save()
+        return medicamento
+
