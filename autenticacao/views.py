@@ -85,7 +85,7 @@ def registrar_medicamento(request):
                 estoque, created = Estoque.objects.get_or_create(
                     medicamento=medicamento,
                     estabelecimento=request.user.profile.estabelecimento,
-                    defaults={'estoque': 0}  # Define o estoque inicial como 0
+                    defaults={'quantidade': 0}  # Define a quantidade inicial como 0
                 )
 
                 if created:
@@ -128,23 +128,23 @@ def transferir_medicamento(request):
             estabelecimento_id=origem_id
         ).first()
 
-        if estoque_origem and estoque_origem.estoque >= quantidade:
+        if estoque_origem and estoque_origem.quantidade >= quantidade:
             # Atualiza o estoque do estabelecimento de origem
-            estoque_origem.estoque -= quantidade
+            estoque_origem.quantidade -= quantidade
             estoque_origem.save()
 
             # Obter ou criar o estoque para o estabelecimento de destino
             estoque_destino, created = Estoque.objects.get_or_create(
                 medicamento_id=medicamento_id, 
                 estabelecimento_id=destino_id,
-                defaults={'estoque': 0}
+                defaults={'quantidade': 0}
             )
-            estoque_destino.estoque += quantidade
+            estoque_destino.quantidade += quantidade
             estoque_destino.save()
 
             messages.success(request, 'Transferência realizada com sucesso.')
         else:
-            estoque_disponivel = estoque_origem.estoque if estoque_origem else 0
+            estoque_disponivel = estoque_origem.quantidade if estoque_origem else 0
             messages.error(request, f'Estoque insuficiente no estabelecimento de origem. Estoque disponível: {estoque_disponivel}')
 
         return redirect('transferir_medicamento')

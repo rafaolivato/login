@@ -50,8 +50,8 @@ class Transferencia(models.Model):
 class Estoque(models.Model):
     medicamento = models.ForeignKey(Medicamento, on_delete=models.CASCADE)
     estabelecimento = models.ForeignKey(Estabelecimento, on_delete=models.CASCADE)
-    
-    estoque = models.IntegerField()
+    quantidade = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return f"{self.medicamento.nome} - {self.estabelecimento.nome}"
+        return f"{self.medicamento.nome} - {self.estabelecimento.nome} - Quantidade: {self.quantidade}"
+

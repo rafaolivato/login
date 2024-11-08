@@ -14,10 +14,14 @@ class MedicamentoAdmin(admin.ModelAdmin):
     list_filter = ('estabelecimento', 'validade', 'registrado_por')
 
 
-@admin.register(Estoque)
+from django.contrib import admin
+from .models import Estoque
+
 class EstoqueAdmin(admin.ModelAdmin):
-    list_display = ('medicamento', 'estabelecimento', 'estoque')
-    search_fields = ('medicamento__nome', 'estabelecimento__nome')
+    list_display = ('medicamento', 'estabelecimento', 'quantidade')  # Corrigido para 'quantidade'
+
+admin.site.register(Estoque, EstoqueAdmin)
+
 
 
 
