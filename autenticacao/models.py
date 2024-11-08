@@ -20,14 +20,13 @@ class Profile(models.Model):
 
 class Medicamento(models.Model):
     nome = models.CharField(max_length=100)
-    quantidade = models.IntegerField()
     validade = models.DateField()
     estabelecimento = models.ForeignKey(Estabelecimento, on_delete=models.CASCADE)
-    registrado_por = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)  # Usuário que registrou
-
+    registrado_por = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.nome
+
     
    
 from django.db import models
@@ -51,6 +50,7 @@ class Transferencia(models.Model):
 class Estoque(models.Model):
     medicamento = models.ForeignKey(Medicamento, on_delete=models.CASCADE)
     estabelecimento = models.ForeignKey(Estabelecimento, on_delete=models.CASCADE)
+    
     estoque = models.IntegerField()
 
     def __str__(self):

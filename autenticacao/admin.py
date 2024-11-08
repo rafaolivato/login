@@ -9,20 +9,15 @@ class EstabelecimentoAdmin(admin.ModelAdmin):
 
 @admin.register(Medicamento)
 class MedicamentoAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'quantidade', 'validade', 'estabelecimento', 'registrado_por')
+    list_display = ('nome', 'validade', 'estabelecimento', 'registrado_por')
     search_fields = ('nome', 'estabelecimento__nome', 'registrado_por__username')
     list_filter = ('estabelecimento', 'validade', 'registrado_por')
 
 
-from django.contrib import admin
-from .models import Estoque
-
+@admin.register(Estoque)
 class EstoqueAdmin(admin.ModelAdmin):
-    list_display = ('medicamento', 'estabelecimento', 'estoque')  # Exibe os campos desejados
-    search_fields = ('medicamento__nome', 'estabelecimento__nome')  # Permite pesquisar por medicamento ou estabelecimento
-
-admin.site.register(Estoque, EstoqueAdmin)
-
+    list_display = ('medicamento', 'estabelecimento', 'estoque')
+    search_fields = ('medicamento__nome', 'estabelecimento__nome')
 
 
 

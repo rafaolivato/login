@@ -17,7 +17,6 @@ class UserRegisterForm(forms.ModelForm):
             user.save()
         return user
 
-
 # autenticacao/forms.py
 class ProfileForm(forms.ModelForm):
     class Meta:
@@ -31,7 +30,7 @@ from .models import Medicamento, Estabelecimento
 class MedicamentoForm(forms.ModelForm):
     class Meta:
         model = Medicamento
-        fields = ['nome', 'quantidade', 'validade']
+        fields = ['nome', 'validade']
 
     # Adiciona o campo 'estabelecimento' para não ser exibido no formulário
     estabelecimento = forms.ModelChoiceField(
